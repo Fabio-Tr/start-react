@@ -13,13 +13,27 @@ import img4 from './img/4.jpg'
 class App extends Component {
   state = {
     cards: [
-      { id: 0, title: "tizio", img: img1, descrption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-      { id: 1, title: "caio", img: img2, descrption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-      { id: 2, title: "sempronio", img: img3, descrption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-      { id: 3, title: "ermenegildo", img: img4, descrption: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
+      { id: 0, quantity: 0, title: "tizio", img: img1, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
+      { id: 1, quantity: 0, title: "caio", img: img2, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
+      { id: 2, quantity: 0, title: "sempronio", img: img3, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
+      { id: 3, quantity: 0, title: "ermenegildo", img: img4, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
     ]
 
   }
+
+handleDelete = cardId => {
+  const updatedCards = this.state.cards.filter( card => card.id !== cardId);
+  this.setState({cards: updatedCards});
+}
+
+handleIncrement = card => {
+  const cards = [...this.state.cards];
+  const id = cards.indexOf(card);
+  cards[id] = {...card};
+  cards[id].quantity++;
+  this.setState({cards});
+}
+
   render() {
 
     return (
@@ -45,9 +59,9 @@ class App extends Component {
               {this.state.cards.map(card => (
                 <Card
                   key={card.id}
-                  title={card.title}
-                  description={card.descrption}
-                  img={card.img}
+                  onDelete={this.handleDelete}
+                  onIncrement={this.handleIncrement}
+                  card={card}
                 />
               ))}
             </div>
