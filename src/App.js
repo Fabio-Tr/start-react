@@ -8,66 +8,61 @@ import img1 from './img/1.jpg'
 import img2 from './img/2.jpg'
 import img3 from './img/3.jpg'
 import img4 from './img/4.jpg'
+import Masthead from './sections/Masthead';
 
 
 class App extends Component {
   state = {
     cards: [
-      { id: 0, quantity: 0, title: "tizio", img: img1, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-      { id: 1, quantity: 0, title: "caio", img: img2, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-      { id: 2, quantity: 0, title: "sempronio", img: img3, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
-      { id: 3, quantity: 0, title: "ermenegildo", img: img4, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."},
+      { id: 0, quantity: 0, title: "tizio", img: img1, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+      { id: 1, quantity: 0, title: "caio", img: img2, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+      { id: 2, quantity: 0, title: "sempronio", img: img3, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+      { id: 3, quantity: 0, title: "ermenegildo", img: img4, description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
     ]
 
   }
 
-handleDelete = cardId => {
-  const updatedCards = this.state.cards.filter( card => card.id !== cardId);
-  this.setState({cards: updatedCards});
-}
+  handleDelete = cardId => {
+    const updatedCards = this.state.cards.filter(card => card.id !== cardId);
+    this.setState({ cards: updatedCards });
+  }
 
-handleIncrement = card => {
-  const cards = [...this.state.cards];
-  const id = cards.indexOf(card);
-  cards[id] = {...card};
-  cards[id].quantity++;
-  this.setState({cards});
-}
+  handleIncrement = card => {
+    const cards = [...this.state.cards];
+    const id = cards.indexOf(card);
+    cards[id] = { ...card };
+    cards[id].quantity++;
+    this.setState({ cards });
+  }
 
   render() {
 
     return (
 
-      <div className="App">
+      <>
         <Navbar />
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <Button text='Clicca su' />
-          <div className='container'>
-            <div className='row'>
-              {this.state.cards.map(card => (
-                <Card
-                  key={card.id}
-                  onDelete={this.handleDelete}
-                  onIncrement={this.handleIncrement}
-                  card={card}
-                />
-              ))}
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo py-5" alt="logo" />
+            <p>
+              Test <code>React</code>
+            </p>
+            <Masthead />
+            <div className='container'>
+              <div className='row'>
+                {this.state.cards.map(card => (
+                  <Card
+                    key={card.id}
+                    onDelete={this.handleDelete}
+                    onIncrement={this.handleIncrement}
+                    card={card}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </header>
-      </div>
+          </header>
+        </div>
+      </>
     );
   }
 }
